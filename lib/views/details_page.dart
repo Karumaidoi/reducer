@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:reducer/API/network.dart';
 import 'package:reducer/model/userModel.dart';
 import 'package:reducer/widgets/card_widget.dart';
+
+import '../model/userModelg.dart';
 
 class DetailsPage extends StatefulWidget {
   final String id;
@@ -15,7 +18,7 @@ class _DetailsPageState extends State<DetailsPage> {
 
   @override
   void initState() {
-    // TODO: implement initState
+    getUser = Network.getUser(widget.id);
     super.initState();
   }
 
@@ -41,11 +44,19 @@ class _DetailsPageState extends State<DetailsPage> {
           ),
         ),
       ),
-      body: const CardWidget(
-          name: 'Alex',
-          email: 'Maina',
-          occupation: "occupation",
-          about: 'about'),
+      body: FutureBuilder<UserModel>(
+          future: getUser,
+          builder: (context, snapshot) {
+            if (!snapshot.hasData) {
+              return const LinearProgressIndicator();
+            }
+
+            return CardWidget(
+                name: snapshot.data!.name,
+                email: snapshot.data!.email,
+                occupation: snapshot.data!.occupation,
+                about: snapshot.data!.bio);
+          }),
     );
   }
 }

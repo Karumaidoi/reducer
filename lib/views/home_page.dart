@@ -17,7 +17,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  late Future<List<UserModel>> getUsers;
+  late Future<List<UsersModel>> getUsers;
 
   @override
   void initState() {
@@ -41,7 +41,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 18),
-        child: FutureBuilder<List<UserModel>>(
+        child: FutureBuilder<List<UsersModel>>(
             future: getUsers,
             builder: (context, snapshot) {
               // Check if the snapshot has no data
