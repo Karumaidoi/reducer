@@ -5,8 +5,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'package:reducer/views/home_page.dart';
 import 'const/theme_data.dart';
-import 'home/splash_screen.dart';
 import 'provider/dark_theme_provider.dart';
 
 void main() async {
@@ -58,7 +58,7 @@ class _MyAppState extends State<MyApp> {
             title: 'FlutterTest',
             // Setting our App Theme
             theme: Styles.themeData(themeChangeProvider.darkTheme, context),
-            home: const SplashScreen(), // Returning the home widget
+            home: const HomeScreen(), // Returning the home widget
           );
         });
       }),
