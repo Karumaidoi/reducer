@@ -73,12 +73,6 @@ class _HomeScreenState extends State<HomeScreen> {
                   });
             }),
       ),
-      // FAB for patching or updating user
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        backgroundColor: Theme.of(context).primaryColor,
-        child: const Icon(Icons.add),
-      ),
     );
   }
 }

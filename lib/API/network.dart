@@ -13,7 +13,6 @@ class Network {
         headers: <String, String>{},
       );
 
-      print(res.body);
       List jsonResponse = jsonDecode(res.body);
 
       return jsonResponse.map((data) => UsersModel.fromJson(data)).toList();
@@ -30,7 +29,26 @@ class Network {
         headers: <String, String>{},
       );
 
-      print(res.body);
+      return UserModel.fromJson(jsonDecode(res.body));
+    } catch (err) {
+      throw Exception(err);
+    }
+  }
+
+  static Future<UserModel> patchUser(String id, String name, String email,
+      String occupation, String bio) async {
+    try {
+      var res = await http.patch(
+        Uri.parse(
+            'https://us-central1-ti-reactjs-test.cloudfunctions.net/app/api/user/2gQbcv3skWuRojtrF1vq'),
+        headers: <String, String>{},
+        body: <String, dynamic>{
+          "name": name,
+          "email": email,
+          "occupation": occupation,
+          "bio": bio
+        },
+      );
 
       return UserModel.fromJson(jsonDecode(res.body));
     } catch (err) {
