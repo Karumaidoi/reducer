@@ -15,9 +15,8 @@ class Styles {
       indicatorColor: isDarkTheme ? Colors.white : const Color(0xFF545d5C),
       buttonColor: isDarkTheme ? Colors.white : const Color(0xff323232),
       hintColor: isDarkTheme ? Colors.grey.shade300 : Colors.grey.shade800,
-      highlightColor: isDarkTheme ? Colors.white30 : const Color(0xffFCE192),
-      hoverColor:
-          isDarkTheme ? const Color(0xff3A3A3B) : const Color(0xff4285F4),
+      highlightColor: isDarkTheme ? Color(0xFFEB6440) : const Color(0xffFCE192),
+      hoverColor: isDarkTheme ? Color(0xFFEB6440) : const Color(0xff4285F4),
       focusColor: isDarkTheme ? Colors.black : const Color(0xFFE0E0E0),
       disabledColor: isDarkTheme ? Colors.transparent : const Color(0xFF151515),
       cardColor: isDarkTheme ? const Color(0xFF151515) : Colors.white,

@@ -2,12 +2,27 @@
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:reducer/API/network.dart';
+import 'package:reducer/model/userModel.dart';
 import 'package:reducer/widgets/card_widget.dart';
 
 import '../Provider/dark_theme_provider.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  late Future<List<UserModel>> getUsers;
+
+  @override
+  void initState() {
+    getUsers = Network.getUsers();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,9 +39,31 @@ class HomeScreen extends StatelessWidget {
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 18),
-        child: ListView(
-          children: [CardWidget(), CardWidget()],
-        ),
+        child: FutureBuilder<List<UserModel>>(
+            future: getUsers,
+            builder: (context, snapshot) {
+              if (!snapshot.hasData) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+              var data = snapshot.data!;
+              return ListView.builder(
+                  itemCount: snapshot.data!.length,
+                  itemBuilder: (context, index) {
+                    return CardWidget(
+                      name: data[index].name,
+                      email: data[index].email,
+                      about: data[index].bio,
+                      occupation: data[index].occupation,
+                    );
+                  });
+            }),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+        backgroundColor: Theme.of(context).primaryColor,
+        child: const Icon(Icons.add),
       ),
     );
   }
