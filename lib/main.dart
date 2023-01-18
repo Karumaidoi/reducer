@@ -50,7 +50,7 @@ class _MyAppState extends State<MyApp> {
             builder: (context, themeData, child) {
           return MaterialApp(
             debugShowCheckedModeBanner: false,
-            title: 'Precise',
+            title: 'FlutterTest',
             theme: Styles.themeData(themeChangeProvider.darkTheme, context),
             home: const SplashScreen(),
           );
