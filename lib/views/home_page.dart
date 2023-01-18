@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:reducer/API/network.dart';
 import 'package:reducer/model/userModel.dart';
+import 'package:reducer/views/details_page.dart';
 import 'package:reducer/widgets/card_widget.dart';
 
 import '../Provider/dark_theme_provider.dart';
@@ -55,11 +56,19 @@ class _HomeScreenState extends State<HomeScreen> {
               return ListView.builder(
                   itemCount: snapshot.data!.length,
                   itemBuilder: (context, index) {
-                    return CardWidget(
-                      name: data[index].name,
-                      email: data[index].email,
-                      about: data[index].bio,
-                      occupation: data[index].occupation,
+                    return GestureDetector(
+                      onTap: () {
+                        Navigator.of(context)
+                            .push(MaterialPageRoute(builder: (context) {
+                          return DetailsPage(id: data[index].id);
+                        }));
+                      },
+                      child: CardWidget(
+                        name: data[index].name,
+                        email: data[index].email,
+                        about: data[index].bio,
+                        occupation: data[index].occupation,
+                      ),
                     );
                   });
             }),
