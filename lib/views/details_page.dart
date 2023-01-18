@@ -22,6 +22,7 @@ class _DetailsPageState extends State<DetailsPage> {
 
   @override
   void initState() {
+    // Populate user with API data
     getUser = Network.getUser(widget.id);
     super.initState();
   }
@@ -51,10 +52,13 @@ class _DetailsPageState extends State<DetailsPage> {
       body: FutureBuilder<UserModel>(
           future: getUser,
           builder: (context, snapshot) {
+            // Check if the snapshot has no data
+            // Show a Circular Progress bar
             if (!snapshot.hasData) {
               return const LinearProgressIndicator();
             }
 
+            // Render a widget
             return CardWidget(
                 name: snapshot.data!.name,
                 email: snapshot.data!.email,
@@ -64,70 +68,79 @@ class _DetailsPageState extends State<DetailsPage> {
       // FAB for patching or updating user
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          showDialog(
-              context: context,
-              builder: (context) {
-                return AlertDialog(
-                  content: SizedBox(
-                    height: 150,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        CupertinoTextField(
-                          onChanged: (value) {
-                            setState(() {
-                              name = value;
-                            });
-                          },
-                          placeholder: 'Name',
-                        ),
-                        CupertinoTextField(
-                          onChanged: (value) {
-                            setState(() {
-                              email = value;
-                            });
-                          },
-                          placeholder: 'Email',
-                        ),
-                        CupertinoTextField(
-                          onChanged: (value) {
-                            occupation = value;
-                          },
-                          placeholder: 'Occupation',
-                        ),
-                        CupertinoTextField(
-                          onChanged: (value) {
-                            bio = value;
-                          },
-                          placeholder: 'Bio',
-                        ),
-                      ],
-                    ),
-                  ),
-                  actions: [
-                    TextButton(
-                        onPressed: () {
-                          if (email == '' ||
-                              name == '' ||
-                              occupation == '' ||
-                              bio == '') return;
-                          Network.patchUser(
-                              widget.id, name, email, occupation, bio);
-
-                          Navigator.of(context).pop();
-
-                          setState(() {
-                            getUser = Network.getUser(widget.id);
-                          });
-                        },
-                        child: const Text("UPDATE"))
-                  ],
-                );
-              });
+          updateUser(context);
         },
         backgroundColor: Theme.of(context).primaryColor,
         child: const Icon(Icons.add),
       ),
     );
+  }
+
+// Methood for showing a pop up to update User
+  Future<dynamic> updateUser(BuildContext context) {
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            content: SizedBox(
+              height: 150,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  CupertinoTextField(
+                    onChanged: (value) {
+                      setState(() {
+                        name = value;
+                      });
+                    },
+                    placeholder: 'Name',
+                  ),
+                  CupertinoTextField(
+                    onChanged: (value) {
+                      setState(() {
+                        email = value;
+                      });
+                    },
+                    placeholder: 'Email',
+                  ),
+                  CupertinoTextField(
+                    onChanged: (value) {
+                      occupation = value;
+                    },
+                    placeholder: 'Occupation',
+                  ),
+                  CupertinoTextField(
+                    onChanged: (value) {
+                      bio = value;
+                    },
+                    placeholder: 'Bio',
+                  ),
+                ],
+              ),
+            ),
+            actions: [
+              TextButton(
+                  onPressed: () {
+                    // Check if the user fields are empty
+                    if (email == '' ||
+                        name == '' ||
+                        occupation == '' ||
+                        bio == '') return;
+
+                    // Call the API responsible to patch User
+                    Network.patchUser(widget.id, name, email, occupation, bio);
+
+                    // Pop Out the alert dialog
+                    Navigator.of(context).pop();
+
+                    // Set local state of the new User
+                    setState(() {
+                      getUser = Network.getUser(widget.id);
+                    });
+                  },
+                  child: const Text("UPDATE"))
+            ],
+          );
+        });
   }
 }
