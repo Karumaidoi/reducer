@@ -42,6 +42,22 @@ class CardWidget extends StatelessWidget {
                           color: Theme.of(context).buttonColor,
                           fontWeight: FontWeight.normal),
                     ),
+                    Container(
+                      margin: const EdgeInsets.only(top: 10),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 8, horizontal: 12),
+                      decoration: BoxDecoration(
+                          color: Theme.of(context).primaryColor.withOpacity(.8),
+                          borderRadius: BorderRadius.circular(8)),
+                      child: Text(
+                        occupation,
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 10,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
                     const SizedBox(
                       height: 20,
                     ),
