@@ -9,7 +9,10 @@ import 'const/theme_data.dart';
 import 'home/splash_screen.dart';
 import 'provider/dark_theme_provider.dart';
 
-void main() {
+void main() async {
+  // Initializing our App
+  WidgetsFlutterBinding
+      .ensureInitialized(); // Using this to ensure our Bindings are initialized
   HttpOverrides.global = MyHttpOverrides();
   runApp(const MyApp());
 }
@@ -22,6 +25,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  // Using Provider to set our Light and Dark theme
   DarkThemeProvider themeChangeProvider = DarkThemeProvider();
 
   void getCurrentTheme() async {
@@ -31,6 +35,7 @@ class _MyAppState extends State<MyApp> {
 
   @override
   void initState() {
+    // Getting the current theme during Widget initialization
     getCurrentTheme();
     super.initState();
   }
@@ -51,8 +56,9 @@ class _MyAppState extends State<MyApp> {
           return MaterialApp(
             debugShowCheckedModeBanner: false,
             title: 'FlutterTest',
+            // Setting our App Theme
             theme: Styles.themeData(themeChangeProvider.darkTheme, context),
-            home: const SplashScreen(),
+            home: const SplashScreen(), // Returning the home widget
           );
         });
       }),
