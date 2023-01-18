@@ -20,6 +20,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void initState() {
+    // Get Data during widget initailization
     getUsers = Network.getUsers();
     super.initState();
   }
@@ -42,11 +43,14 @@ class _HomeScreenState extends State<HomeScreen> {
         child: FutureBuilder<List<UserModel>>(
             future: getUsers,
             builder: (context, snapshot) {
+              // Check if the snapshot has no data
               if (!snapshot.hasData) {
                 return const Center(
                   child: CircularProgressIndicator(),
                 );
               }
+
+              // Render a widget if the snapshot has data
               var data = snapshot.data!;
               return ListView.builder(
                   itemCount: snapshot.data!.length,
@@ -60,6 +64,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   });
             }),
       ),
+      // FAB for patching or updating user
       floatingActionButton: FloatingActionButton(
         onPressed: () {},
         backgroundColor: Theme.of(context).primaryColor,
