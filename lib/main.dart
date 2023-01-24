@@ -1,11 +1,14 @@
 // ignore_for_file: unnecessary_import
 
 import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:reducer/views/home_page.dart';
+import 'package:reducer/views/main_home.dart';
+
 import 'Theme/theme_data.dart';
 import 'provider/dark_theme_provider.dart';
 
@@ -58,7 +61,7 @@ class _MyAppState extends State<MyApp> {
             title: 'FlutterTest',
             // Setting our App Theme
             theme: Styles.themeData(themeChangeProvider.darkTheme, context),
-            home: const HomeScreen(), // Returning the home widget
+            home: const HomePage(), // Returning the home widget
           );
         });
       }),

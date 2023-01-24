@@ -22,7 +22,10 @@ class CardWidget extends StatelessWidget {
             Row(
               children: [
                 CircleAvatar(
-                  child: Text(name.split(' ')[0].split('')[0]),
+                  child: Text(
+                    name.split(' ')[0].split('')[0],
+                    style: TextStyle(fontSize: 18),
+                  ),
                 ),
                 const SizedBox(
                   width: 20,

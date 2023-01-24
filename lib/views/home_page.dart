@@ -30,15 +30,6 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
-      appBar: AppBar(
-        title: Text(
-          "Flutter Test",
-          style: TextStyle(
-            color: Theme.of(context).buttonColor,
-            fontSize: 15,
-          ),
-        ),
-      ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 18),
         child: FutureBuilder<List<UsersModel>>(
